@@ -32,17 +32,23 @@ public class SpringBootKaptchaApplication {
 	@Bean
 	public Producer producer() {
 		DefaultKaptcha p = new DefaultKaptcha();
-		Properties properties = new Properties();
-		properties.setProperty(Constants.KAPTCHA_BORDER, "yes");
-		properties.setProperty(Constants.KAPTCHA_BORDER_COLOR, "105,179,90");
-		properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "50");
-		properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "150");
-		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "40");
-		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
-		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "5");
-		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体,楷体,微软雅黑");
-		Config config = new Config(properties);
-		p.setConfig(config);
+		p.setConfig(config());
 		return p;
 	}
+
+	@Bean
+	public Config config() {
+		Properties properties = new Properties();
+//		properties.setProperty(Constants.KAPTCHA_BORDER, "yes");
+//		properties.setProperty(Constants.KAPTCHA_BORDER_COLOR, "105,179,90");
+//		properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "50");
+//		properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "150");
+//		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "40");
+		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
+		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
+		properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体,楷体,微软雅黑");
+		Config config = new Config(properties);
+		return config;
+	}
+
 }

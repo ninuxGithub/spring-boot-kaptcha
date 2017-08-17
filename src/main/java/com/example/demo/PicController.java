@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,6 +21,12 @@ public class PicController {
 
 	@Autowired
 	private Producer producer;
+	
+	@Autowired
+	private ChineseText chineseText;
+	
+	@Value("${chineseQRCode}")
+	private boolean chineseQRCode=false; 
 
 	@RequestMapping("/")
 	public String index() {
@@ -46,8 +53,17 @@ public class PicController {
         response.setHeader("Pragma", "no-cache");  
         
 		response.setContentType("image/jpeg");
-
-		String text = producer.createText();
+		
+		String text = null;
+		if(chineseQRCode) {
+			text = chineseText.getText();
+			if(null == text) {
+				text= producer.createText();
+			}
+		}else {
+			text= producer.createText();
+		}
+		
 
 		BufferedImage image = producer.createImage(text);
 		
