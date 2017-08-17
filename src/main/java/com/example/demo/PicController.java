@@ -67,6 +67,7 @@ public class PicController {
 
 		BufferedImage image = producer.createImage(text);
 		
+		/**存入session 校验是否正确*/
 		session.setAttribute(Constants.KAPTCHA_SESSION_CONFIG_KEY, text);
 		
 		System.out.println(text);
